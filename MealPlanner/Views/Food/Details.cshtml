@@ -1,0 +1,65 @@
+﻿@model MealPlanner.Models.Food
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Food</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FoodIngredients)
+        </dt>
+
+        <dd>
+            <table class="table">
+                <tr>
+                    <th>Ingredient</th>
+                    <th>Category</th>
+                    <th>Size</th>
+                </tr>
+
+                @foreach (var item in Model.FoodIngredients)
+                {
+                    <tr>
+                        <td>@item.Ingredient.Name</td>
+                        <td>@item.Ingredient.Category</td>
+                        <td>@item.Size</td>
+                    </tr>
+                }
+                
+            </table>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

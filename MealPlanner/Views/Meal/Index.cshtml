@@ -1,0 +1,65 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+
+@model IPagedList<MealPlanner.Models.Meal>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create") | @Html.ActionLink("About", "About")
+</p>
+
+@using (Html.BeginForm("Index", "Meal", new { sortOrder = ViewBag.SortOrder, page = 1 }))
+{
+    <p>
+        Search by Name: @Html.TextBox("searchString")
+        <input type="submit" value="Search" class="btn-default" />
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.SortOrder == "name_asc" ? "name_desc" : "name_asc", searchString = ViewBag.SearchString, page = Model.PageNumber })
+        </th>
+        <th>
+            @Html.ActionLink("Category", "Index", new { sortOrder = ViewBag.SortOrder == "category_asc" ? "category_desc" : "category_asc", searchString = ViewBag.SearchString, page = Model.PageNumber })
+        </th>
+        <th>
+            @Html.ActionLink("Date Created", "Index", new { sortOrder = ViewBag.SortOrder == "dateCreated_asc" ? "dateCreated_desc" : "dateCreated_asc", searchString = ViewBag.SearchString, page = Model.PageNumber })
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateCreated)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<br />
+
+Page @Model.PageNumber of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.SortOrder, searchString = ViewBag.SearchString}))

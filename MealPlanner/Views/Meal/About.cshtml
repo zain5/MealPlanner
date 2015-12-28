@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MealPlanner.ViewModels.MealStat>
+
+@{
+    ViewBag.Title = "Meal Stats";
+}
+
+@*<h2>Meal Statistics</h2>*@
+
+<div class="panel row">
+    <div class="panel-heading">
+        <h3>Meal Statistics</h3>
+    </div>
+    <div class="panel-body col-md-6 col-md-offset-3">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Meal Category
+                </th>
+                <th>
+                    Meals
+                </th>
+            </tr>
+
+            @foreach (var mealStat in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(T => mealStat.Category)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(T => mealStat.Count)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
